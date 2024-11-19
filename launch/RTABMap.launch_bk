@@ -1,0 +1,29 @@
+<launch>
+    <arg name="frame_id" default="base_footprint"/>
+    <arg name="odom_frame_id" default="odom"/>
+    <arg name="map_frame_id" default="map"/>
+
+    <node pkg="rtabmap_ros" type="rtabmap" name="rtabmap" output="screen" args="-d">
+        <!-- Configurazione per non sottoscriversi ai topic delle immagini -->
+        <param name="subscribe_rgb" value="false"/>
+        <param name="subscribe_depth" value="false"/>
+        <param name="subscribe_stereo" value="false"/>
+<param name="Grid/3D" value="true"/>
+
+        <!-- Configurazione per sottoscriversi al topic del PointCloud -->
+        <param name="subscribe_scan_cloud" value="true"/>
+        <remap from="scan_cloud" to="/velodyne_points"/>
+<param name="Reg/Strategy" value="1"/>
+
+        <!-- Parametri generali -->
+        <param name="frame_id" value="$(arg frame_id)"/>
+        <param name="odom_frame_id" value="$(arg odom_frame_id)"/>
+        <param name="map_frame_id" value="$(arg map_frame_id)"/>
+<param name="publish_tf_map" value="true"/>
+
+        <!-- Parametri specifici per il PointCloud -->
+        <param name="queue_size" value="10"/>
+        <param name="approx_sync" value="true"/>
+    </node>
+</launch>
+

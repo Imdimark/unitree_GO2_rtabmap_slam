@@ -1,0 +1,48 @@
+<launch>
+  <!-- Nodo per l'odometria basata su ICP -->
+  <node name="icp_odometry" pkg="rtabmap_ros" type="icp_odometry" output="screen">
+    <remap from="scan_cloud" to="/velodyne_points"/>
+    <param name="frame_id" value="trunk"/>
+    <param name="odom_frame_id" value="odom"/>
+    <param name="publish_tf" value="true"/>
+    <param name="wait_for_transform" value="1.0"/>
+<param name="tf_cache_time" value="20.0" />
+ 
+ </node>
+
+  <!-- Nodo RTAB-Map -->
+  <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen">
+<param name="Grid/FromDepth" type="string" value="false"/>
+<param name="Grid/3D" type="string" value="false"/>
+<param name="Grid/RangeMax" type="string" value="15"/>
+<param name="Grid/CellSize" type="string" value="0.05"/>
+<param name="Grid/FootprintRadius" type="string" value="0.2"/>
+<param name="RGBD/ProximityBySpace" type="string" value="true"/>
+
+    <param name="frame_id" value="trunk"/>
+    <param name="odom_frame_id" value="odom"/>
+    <param name="map_frame_id" value="map"/>
+<param name="publish_tf_map" value="true"/>
+    <param name="subscribe_scan_cloud" value="true"/>
+    <param name="subscribe_odom" value="true"/>
+    <param name="subscribe_imu" value="true"/>
+    <remap from="odom" to="odom"/>
+    <remap from="scan_cloud" to="/velodyne_points"/>
+    <remap from="imu/data" to="/trunk_imu"/>
+<remap from="/map" to="/rtabmap/grid_map"/>
+ <param name="RGBD/Enabled" value="false"/>
+  <param name="Reg/Strategy" value="1"/> <!-- Usa ICP per la registrazione -->
+  <param name="Reg/Force3DoF" value="true"/> <!-- Forza la registrazione in 3 DoF se necessario -->
+<param name="subscribe_depth" value="false"/>
+  <param name="subscribe_rgb" value="false"/>
+  <param name="subscribe_stereo" value="false"/>
+  <param name="subscribe_rgbd" value="false"/>
+ <param name="Grid/FromScan" value="true"/>
+  <param name="Grid/RangeMax" value="15.0"/> <!-- Regola in base al tuo LIDAR -->
+  <param name="Grid/Incremental" value="true"/>
+  <param name="Grid/MapFrame" value="map"/>
+  <param name="publish_period_map" value="1.0"/>
+<param name="RGBD/ProximityBySpace" value="true"/>
+  </node>
+</launch>
+
