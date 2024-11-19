@@ -1,3 +1,7 @@
+Notes:
+- Laser:  [Velodyne-16](http://wiki.ros.org/velodyne/Tutorials/Getting%20Started%20with%20the%20Velodyne%20VLP16)
+- This project started from the urdf of go2 with the velodyne sensor (forked by the submodule included in this project) .
+- [Champ](https://github.com/chvmp/champ_setup_assistant) has been used to create this package (also the readme) for controlling the robot movement and its simulation on Gazebo. [RTABmap](http://introlab.github.io/rtabmap/) instad has been implemented to obtain 2d slam and 3d mapping.
 
 ## 1. Quick Start
 
@@ -71,6 +75,7 @@ Spawning a robot:
 
     
 * Every instance of the spawned robot must have a unique robot name to prevent the topics and transforms from clashing.
+
 
 
 ---
