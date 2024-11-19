@@ -1,0 +1,3 @@
+[submodule "go2_description"]
+	path = go2_description
+	url = https://github.com/Imdimark/go2_description.git
